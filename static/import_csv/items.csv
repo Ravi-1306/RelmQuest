@@ -1,0 +1,39 @@
+Name,Description,Weight,Equipable,Damage,Armor
+Padded armor,light armor made from layers of cloth and batting,5,TRUE,,"	11"
+Leather Armor,Light armor made from leather,7,TRUE,,"	11"
+Chain Mail,Heavy armor made from interlocking rings  of metal with a cloth undershirt,12,TRUE,,"	16"
+Breastplate,Medium armor fitted metal chest piece that covers the vital organs,15,TRUE,,"	14"
+Half Plate,Shaped metal plates that cover  most of the body except the legs,19,TRUE,,"	15"
+Adamantine Breastplate,Breastplate reinforced with adamantine,14,TRUE,,"	16"
+Dagger,Short blade,2,TRUE,5,
+Mace,Spiked metal club,12,TRUE,8,
+Spear,polearm with a sharpened tip,10,TRUE,8,
+Shortbow,Bow with shorter limbs,6,TRUE,2,
+Longbow,Bow with longer limbs,9,TRUE,4,
+Battleaxe,Large double-headed axe,14,TRUE,9,
+Greatsword,Large and heavy two-handed sword,16,TRUE,9,
+Longsword,Long single-handed sword,10,TRUE,8,
+Shortsword,short single-handed sword,7,TRUE,7,
+Warhammer,Polearm with a double-headed hammer,16,TRUE,9,
+Light Crossbow,Crossbow with lighter draw weight and construction,7,TRUE,3,
+Heavy Crossbow,Crossbow with heavier draw weight and construction,10,TRUE,5,
+Arrows,projectiles fired from bows,5,FALSE,4,
+Crossbow bolts,projectiles fired from crossbows,5,FALSE,4,
+Shield,it protec,12,TRUE,4,10
+Vial of acid,glass toob of acid,0.1,TRUE,10,
+Health potion,Potion that heals 8 hp,0.1,TRUE,,
+Greater Health Potion,Potion that heals 16 hp,0.1,TRUE,,
+Superior Health Potion,Potion that heals 32 hp,0.1,TRUE,,
+Potion of Poision,"This concoction looks, smells, and tastes like a potion of healing or other beneficial potion. However, it is actually poison masked by illusion magic. An identify spell reveals its true nature.",0.1,TRUE,9,
+Invisibility Potion,Drink to turn the user invisible for 1 hour,0.1,TRUE,,
+Water Breath Potion,Allows user to breath underwater for 1 hour,0.1,TRUE,,
+Gas Body Potion,User's body turns into a gas cloud  for 1 hour,0.1,TRUE,,
+Bucket,2 gallon bucket made of metal,2,FALSE,,
+Cooking pot,A large cooking pot for using on a campfire,8,FALSE,4,
+Spoon,small metal spoon for eatin',0.1,TRUE,1,
+Flint and steel,tool for starting  a fire,0.1,FALSE,,
+Backpack,Bag worn on the back for holding things,0.2,FALSE,,
+Clothes,common clothes to be worn,1,FALSE,,
+Lantern,Handheld lamp fueled with oil,0.3,FALSE,,
+Mess kit,"Small box, containing a cup and cutlery, that can be used for cooking and as a plate or small bowl",0.4,FALSE,,
+Rope,50 feet of rope,10,FALSE,,

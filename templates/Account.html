@@ -1,0 +1,221 @@
+{% extends '_template.html' %}
+{% block Title %}
+Account
+{% endblock %}
+{% block body %}
+
+<style>
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+        margin: 0;
+        padding: 0;
+    }
+
+    .Account {
+        background-color: lightgray;
+        color: black;
+        margin-top: 100px;
+    }
+
+    .Account h3 {
+        margin-left: 32px;
+    }
+
+    .alert {
+        width: 600px;
+    }
+
+    .btn-container {
+        margin-left: 20px;
+        margin-top: 30px;
+        text-align: center;
+
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #fff;
+        color: #007bff;
+        border: 1px solid #007bff;
+    }
+
+    .btn-primary-delete {
+        background-color: red;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary-delete:hover {
+        background-color: #fff;
+        color: red;
+        border: 1px solid red;
+    }
+
+    .btn-secondary {
+        background-color: gray;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #fff;
+        color: gray;
+        border: 1px solid gray;
+    }
+
+    .container {
+        background-color: rgba(239, 251, 244, 0.903);
+        width: 500px;
+        margin-left: 20px;
+        border-radius: 7px;
+        margin-top: 30px;
+        height: fit-content;
+    }
+
+    .container h4 {
+        font-size: medium;
+        color: #aab5b8;
+        margin-top: 10px;
+    }
+
+    .container h3 {
+        font-size: medium;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .danger {
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        /* Adjust this for the desired height */
+    }
+
+    .text {
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+
+    .text-danger {
+        margin-top: 30px;
+        margin-left: 20px;
+        color: rgb(171, 13, 13);
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+</style>
+
+<script>
+    function confirmDelete() {
+        if (confirm("Are you sure want to delete your account?")) {
+            window.location.href = "/delete";
+        }
+    }
+</script>
+
+<body>
+    <div class="main-container">
+        <div class="center-form text-center">
+            <h3 class="display-1"
+                style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 40px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+                My Account </h3>
+        </div>
+
+        <br>
+
+        <h3
+            style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; margin-top: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+            Username: </h3>
+        <h4 style="font-family: 'Inter', sans-serif; color: rgb(154, 214, 115); margin-bottom: 30px;">{{
+            username }} </h4>
+
+        <h3
+            style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+            Email: </h3>
+        <h4 style="font-family: 'Inter', sans-serif; color: rgb(154, 214, 115);">{{
+            email }} </h4>
+
+        <div class="dropdown">
+            <div style="margin-top: 10px;">
+                <button class="btn btn-light dropdown-toggle" type="button" id="editAccountDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Edit Account
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="editAccountDropdown">
+                    <li><a class="dropdown-item" href="/update">Change Username/Email</a>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                            data-bs-target="#deleteAccountModal">Delete
+                            Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form method="post" action="/logout" class="logout-form">
+            <div class="d-grid gap-2 col-1 col-md-1 mt-3">
+                <div style="margin-top: 5px">
+                    <button type="submit" class="btn btn-light">Logout</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel"
+            aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </symbol>
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </symbol>
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </symbol>
+            </svg>
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteAccountModalLabel">Account Removal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="alert alert-danger d-flex align-items-center" role="alert" style="width: 470px;">
+                            <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Danger:">
+                                <use xlink:href="#exclamation-triangle-fill" />
+                            </svg>
+                            <div>
+                                There is no going back. Please be certain!
+                            </div>
+                        </div>
+                        <div class="btn-container">
+                            <button type="button" class="btn btn-primary-delete" onclick="confirmDelete()">Delete
+                                Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+{% endblock %}

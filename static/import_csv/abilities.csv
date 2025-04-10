@@ -1,0 +1,35 @@
+name,description,race_req,class_req,level
+Swipe,A quick swing of ones weapons in a large arching circle.,NULL,1,1
+Second Wind,No amount of pain can stop a true warrior!,NULL,1,4
+Taunt,Spew the vilest of insults forcing enemies to attack you.,NULL,1,7
+Skull Bash,A quick blow to the hean tends to discomboulate ones enemies.,NULL,1,10
+Blade Whirlwind,When facing multiple enemies try spinning really quickly and you mit hit something,NULL,1,13
+Unstoppable Force,Once you get going nothing can stay in your way.,NULL,1,16
+Unmoveable Object,Getting hit by a building can not even phase you.,NULL,1,20
+Heal,Use holy energy to restore life force.,NULL,2,1
+Smite,Holy hammer to the face.,NULL,2,4
+Prayer,Request aid from the divine.,NULL,2,7
+Holy Fire,Heal the faithfull. Burn the heretics!,NULL,2,10
+Sanctuary,Bless some land and stop the unholy from entering.,NULL,2,13
+Holy Light,Your gods light will burn away all the heretics.,NULL,2,16
+Divine Intervention,Your god really does not want you or your friends to die.,NULL,2,20
+Magic Missile,Five scattered shots.,NULL,3,1
+Magic Arrow,Single focused shot.,NULL,3,4
+Illusion,Create a small to medium illusionary object or disguise a similar sized object.,NULL,3,7
+Fireball,Throw a medium ball of fire that explodes on impact.,NULL,3,7
+Combustion,Make anythin burn to the ground.,NULL,3,13
+Lightning Bolt,For when fire does not work!,NULL,3,16
+Death Ray,Just incase you really don't like someone.,NULL,3,20
+Triple Shot,Three arrows for the price of one.,NULL,4,1
+Speak with Animals,You understand all the friendly and not so friendly animals.,NULL,4,4
+Entangling Strike,Wrap an enemy in vines.,NULL,4,7
+Animal Companion,Every hunter needs a friend.,NULL,4,10
+Explosive Shot,Strapping a bomb to an arrow is definitly a good idea!,NULL,4,16
+Rain of Arrows,For when your trying to hit everyone in a large area.,NULL,4,20
+Backstab,A knife from behind is always more painful,NULL,5,1
+Sneaky Git,Makes you extra sneaky,NULL,5,4
+Pick Pocket,Steal from anyone with ease,NULL,5,7
+Deadly Poison,Posion on your weapons makes your enemies die slowly.,NULL,5,10
+Caltrops,People can't attack if they can't stand.,NULL,5,13
+One Thousand Years of Death,The user tightly clasps their hands together and extends their middle and index fingers using the full weight of their body the user thrusts these four fingers between the target's buttocks,NULL,5,16
+Execute,Kill those who are already injured.,NULL,5,20

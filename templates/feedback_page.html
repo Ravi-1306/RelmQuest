@@ -1,0 +1,92 @@
+{% extends '_template.html' %}
+{% block Title %}
+Feedback
+{% endblock %}
+{% block body %}
+
+<style>
+  body {
+    background-color: rgba(64, 107, 80, 0.903);
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    background-color: rgba(239, 251, 244, 0.903);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 44%;
+    margin: auto;
+  }
+
+  .container h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 250px;
+    /* Adjust input width */
+  }
+
+  .navbar {
+    background-color: white !important;
+  }
+</style>
+
+<body>
+  <div class="center-form text-center">
+    <h3 class="display-1"
+      style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 40px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+      Feedback </h3>
+  </div>
+
+  <div class="container mt-4">
+    <h2
+      style="font-weight: bold; margin-bottom: 40px; font-family: 'Inter', sans-serif; color: rgba(64, 107, 80, 0.903);">
+      Please share your query or suggestion</h2>
+    <form action="https://formspree.io/f/mrgwwdnk" method="POST">
+      <div class="form-group">
+        <label for="accountEmail"
+          style="font-weight: lighter; font-family: 'Inter', sans-serif; color: rgba(64, 107, 80, 0.903); margin-bottom: 5px;">Optional:
+          Provide your account email</label>
+        <input type="email" class="form-control" id="accountEmail" name="accountEmail" placeholder="Provide your contact">
+      </div>
+
+      <div class="form-group">
+        <label for="issueType"
+          style="font-weight: lighter; font-family: 'Inter', sans-serif; color: rgba(64, 107, 80, 0.903); margin-bottom: 5px;">
+          Select the issue or suggestion type
+        </label>
+        <select class="form-control" id="issueType" name="issueType" required>
+          <option value="">Choose category</option>
+          <option value="Account Issue">Account Issue</option>
+          <option value="Suggestion">Suggestion</option>
+          <option value="Character Issue">Character Issue</option>
+          <option value="Report Abusive Player">Report Abusive or Suspicious Player</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="feedback"
+          style="font-weight: lighter; font-family: 'Inter', sans-serif; color: rgba(64, 107, 80, 0.903); margin-bottom: 5px;">
+          Please provide details in the space below</label>
+        <textarea class="form-control" id="feedback" name="feedback" rows="3" required></textarea>
+      </div>
+      <div class="text mt-5">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+{% endblock %}

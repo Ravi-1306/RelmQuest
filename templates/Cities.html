@@ -1,0 +1,144 @@
+
+{%extends '_template.html'%}
+{%block head%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+{%endblock%}
+{%block Title%}
+    {{city_name}}
+{%endblock%}
+{%block body%}
+    
+    <div class = "row p-2 vh-100" style = "background-image: url({{url_for('static', filename = 'assets/towns/' ~ city_name ~ '.png')}}); background-size: cover">
+        <div class="col-4 border border-dark-subtle pt-1" style = "background-image: url('{{ url_for('static', filename='assets/notice_board.jpg') }}'); background-size: cover">
+            <div class = "row p-2 ps-3">
+            {%for event in events%}
+                <div class = "col-6 p-1" style = "background-image: url('{{ url_for('static', filename='assets/notice_paper.webp') }}'); background-size: cover;">
+                <p class = "text-center">{{event.name}}</p>
+                <p class = "pt-1 ps-3">{{event.start_date}} ' - '  {{event.end_date}}</p>
+                <p class = "pt-1 ps-3">{{event.description}}</p>
+                </div>
+            {%endfor%}
+            </div>
+        </div>
+        <div id = "chat" class="col-6 border border-dark-subtle pt-1 position-relative">
+            <div id = "chat-messages" style = "overflow-y: scroll">
+            {%for message in messages%}
+                <div id = "{{message.id}}" class = "pt-1 pb-2 border-bottom border-light-subtle bg-gradient text-bg-dark bg-opacity-50">
+                    {%if message.profile_image%}
+                    <p class = "ps-4 pt-1"><img src="{{url_for('static', filename='assets/chars/' ~ message.profile_image)}}">{{message.char_name}}</p>
+                    {%else%}
+                    <p class = "ps-4 pt-1">{{message.char_name}}</p>
+                    {%endif%}
+                    <p class = "ps-2 pt-1">{{message.message}}</p>
+                    <p class = "ps-2 pt-1">{{message.time}}</p>
+                    {% if character.id == message.char_id %}
+                    <form method="post" action="/Location/{{city_name}}" onsubmit="updateMessageEdit("{{message.id}}")">
+                        <input id = "edit-{{message.id}}" name = "message_edit" value = "" readonly hidden>
+                        <button class="btn btn-outline-dark text-bg-dark" type="submit" name = "message_id" value = "{{message.id}}" onclick="updateMessageEdit({{message.id}})">Edit</button>
+                    </form>
+                    <script>
+                        function updateMessageEdit(message_Id){
+                            var messageValue = document.getElementById('message');
+                            document.getElementById("edit-" + message_Id).value = messageValue;
+                        }
+                    </script>
+                    <form method="post" action="/Location/{{city_name}}/delete">
+                        <button class="btn btn-outline-dark text-bg-dark" type="submit" name = "message_id" value = "{{message.id}}" >Delete</button>
+                    </form>
+                    {%endif%} 
+                </div>
+            {%endfor%}
+            </div>
+            <div id = "chat-sumbit" class ="pb-1 position-absolute bottom-0 container-fluid pe-4">
+                <textarea class = "form-control text-bg-secondary" rows = "3" name = "message" id = "message" placeholder="Your message waits to be written...."></textarea> 
+                <button id = "send-btn" class="btn btn-outline-dark text-bg-dark" type="submit" >Send</button>
+            </div>
+        </div>
+        <div id = "users" class="col-2 border border-dark-subtle pt-1 bg-opacity-50 bg-dark" style = "overflow-y: scroll">
+            <!--Visualation of every person in city active on the page-->
+            {%for user in users%}
+            <div class="border-bottom bg-gradient text-bg-dark bg-opacity-50" id = "{{user[0]}}">
+                {%if user[1]%}
+                <p class = ps-1><img src="{{url_for('static', filename='assets/chars/' ~ user[1])}}"> {{user[0]}}</p>
+                {%else%}
+                <p class = ps-1>{{user[0]}}</p>
+                {%endif%}
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        var city_name = '{{city_name}}';
+        var socket = io();
+        socket.emit('connection', city_name);
+    
+        socket.on('chat', function(message, message_id, char_name, image, time){
+            let chat = document.getElementById("chat-messages");
+            let new_message = document.createElement("div");
+            new_message.id = message_id;
+            new_message.className = "pt-1 pb-2 border-bottom border-light-subtle bg-gradient text-bg-dark bg-opacity-50";
+            let new_character_header = document.createElement("p");
+            new_character_header.className = "ps-4 pt-1";
+            let char_pic = document.createElement("img");
+            var user_image_path = "{{url_for('static', filename = 'assets/chars/')}}" + image;
+            char_pic.src = user_image_path;
+            new_character_header.appendChild(char_pic);
+            new_character_header.appendChild(document.createTextNode(char_name));
+            new_message.appendChild(new_character_header);
+            let new_messagebody = document.createElement("p");
+            new_messagebody.className = "ps-2 pt-1";
+            new_messagebody.appendChild(document.createTextNode(message));
+            new_message.append(new_messagebody);
+            let new_messagetime = document.createElement("p");
+            new_messagetime.className = "ps-2 pt-1";
+            new_messagetime.appendChild(document.createTextNode(time));
+            new_message.appendChild(new_messagetime);
+            chat.appendChild(new_message);
+            chat.scrollTop = chat.scrollHeight;
+        })
+        socket.on('message_delete', function(message_id){
+            let chat = document.getElementById("chat-messages");
+            for (child in chat.childNodes){
+                if (chat.childNodes[child].id == message_id){
+                    chat.removeChild(chat.childNodes[child]);
+                }
+            }
+        })
+        socket.on('message_updated', function(message_id, message){
+            let chat = document.getElementById("chat-messages");
+            for (child in chat.childNodes){
+                if (chat.childNodes[child].id == message_id){
+                    let message_element = chat.childNodes[child];
+                    message_element.childNodes[1].replaceChild(document.createTextNode(message + " -edited"), message_element.childNodes[1].childNodes[0])
+                }
+            }
+        })
+        socket.on('new_connection', function(char_name, char_pic){
+            let user_panel = document.getElementById('users');
+            let new_user = document.createElement("div");
+            let new_user_img = document.createElement("img");
+            var user_image_path = "{{url_for('static', filename = 'assets/chars/')}}" + char_pic;
+            new_user_img.src = user_image_path;
+            new_user.appendChild(new_user_img);
+            new_user.appendChild(document.createTextNode(char_name));
+            new_user.id = char_name
+            user_panel.appendChild(new_user);
+        })
+        socket.on('disconnection', function(char_name){
+            let user_panel = document.getElementById('users');
+            for (child in user_panel.childNodes){
+                if (user_panel.childNodes[child].id == char_name){
+                    user_panel.removeChild(user_panel.childNodes[child]);
+                }
+            }
+        })
+        document.getElementById("send-btn").addEventListener("click", function(){
+            let message = document.getElementById("message").value;
+            socket.emit("message_sent", message, city_name);
+            document.getElementById("message").value = "";
+        })
+        window.onbeforeunload = function () {
+        socket.emit('disconnect');
+        }
+    </script>
+{%endblock%}

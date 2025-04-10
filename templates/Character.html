@@ -1,0 +1,398 @@
+{%extends '_template.html'%}
+{%block Title%}
+Character
+{%endblock%}
+{%block body%}
+<style>
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+
+    .form-control {
+        padding-bottom: 10px;
+    }
+
+    .custom-card {
+        background-color: aliceblue;
+    }
+</style>
+
+<div class="row p-2 vh-60">
+    <!--Name, race, age-->
+    <div class="col-3">
+        <div class="card custom-card">
+            <div class="card-header text-center">
+                <h4 class="text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">
+                    Name</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h4 style="font-family: 'Inter', sans-serif; margin-top: 10px;">
+                            <!--Added -->
+                            <img src="static/assets/chars/{{character.image}}"> {{character.name}}
+                        </h4>
+                        <p style="margin-top: 60px;"><strong>Personality</strong>: {{character.personality}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Character Level-->
+    <div class="col-3 ps-3">
+        <div class="card custom-card">
+            <div class="card-body">
+                <h5 class="text-center" style="font-family: 'Inter', sans-serif; margin-bottom: 20px;">
+                    <strong>{{char_class.name}}</strong>: {{level[0]}}
+                </h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar"
+                        style="width: {{((character.experience-level[1])/(level[2]-level[1])*100)}}%"
+                        aria-valuenow="{{character.experience}}" aria-valuemin="{{level[1]}}"
+                        aria-valuemax="{{level[2]}}">{{character.experience - level[1]}}</div>
+                </div>
+                <!--finish xp add/level up form-->
+                <form class="pt-2" method="post" action="/Character">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="exp" name="exp" placeholder="XP" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-secondary">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card custom-card">
+            <div class="card-header">
+                <h4 class="text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Character Info</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="ps-2 pt-2 text-center" style="font-family: 'Inter', sans-serif;">
+                    <strong>Age</strong>: {{character.age}}
+                </h5>
+                <h5 class="ps-2 text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">
+                    <strong>Race</strong>: {{char_race}}
+                </h5>
+                <h5 class="ps-2 text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">
+                    <strong>Alignment</strong>: {{alignment}}
+                </h5>
+                <h5 class="ps-2 text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">
+                    <strong>Religion</strong>: {{character.religion}}
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 pe-3">
+        <div class="card custom-card">
+            <div class="card-header">
+                <h4 class="text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Equipment</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>
+                        <div class="row border-bottom">
+                            <div class="col-8">
+                                <p style="font-family: 'Inter', sans-serif;"><strong>Weapon:</strong> {{weapon.name}}
+                                    Damage: {{weapon.damage}}
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <form action="/Character" method="post">
+                                    <td><button type="submit" name="equipment" value="weapon"
+                                            class="btn btn-secondary">Unequip</button></td>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row border-bottom">
+                            <div class="col-8">
+                                <p style="font-family: 'Inter', sans-serif; margin-top: 5px;"><strong>Armor:</strong>
+                                    {{armor.name}} Armor: {{armor.armor}}
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <form action="/Character" method="post">
+                                    <td><button type="submit" name="equipment" value="armor" style="margin-top: 5px;"
+                                            class="btn btn-secondary">Unequip</button></td>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row border-bottom">
+                            <div class="col-8">
+                                <p style="font-family: 'Inter', sans-serif; margin-top: 5px;"><strong>Belt:</strong>
+                                    {{belt.name}}
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <form action="/Character" method="post">
+                                    <td><button type="submit" name="equipment" value="belt" style="margin-top: 5px;"
+                                            class="btn btn-secondary">Unequip</button></td>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row p-2 vh-60">
+    <!--Stats-->
+    <div class="col-6">
+        <h2 class="text-center border-bottom mb-2"
+            style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+            Stats</h2>
+        <div class="row mb-4">
+            <div class="col-6">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Grit</th>
+                                    <td>{{character.grit}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Prowess
+                                    </th>
+                                    <td>{{character.prowess}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Grace
+                                    </th>
+                                    <td>{{character.grace}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Wit</th>
+                                    <td>{{character.wit}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Savvy
+                                    </th>
+                                    <td>{{character.savvy}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--Stats pt. 2-->
+            <div class="col-6">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Max HP
+                                    </th>
+                                    <td>{{((level[0]*((character.grit -10 /4) + 5)) * (char_class.hp_mod /
+                                        100))|round|int}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">HP
+                                    </th>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                {{character.cur_hp}}
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form action="/Character" method="post">
+                                                    <input type="number" class="form-control" id="hp" name="hp"
+                                                        placeholder="0" required>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Armor
+                                    </th>
+                                    {%if armor and armor.armor%}
+                                    <td>{{((character.grace - 10) / 2) + armor.armor}}</td>
+                                    {%else%}
+                                    <td>{{((character.grace - 10) / 2) + 10}}</td>
+                                    {%endif%}
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Carry
+                                        Weight</th>
+                                    <td>{{20 + (character.grit * character.prowess / 20)}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Weight
+                                    </th>
+                                    <td>{{weight}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="row">
+            <h2 class="text-center border-bottom mb-2"
+                style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                Inventory</h2>
+            <div class="col-8">
+                <div style="height:400px; overflow-y: scroll;">
+                    <table class="table table-bordered">
+                        <thead
+                            style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 40px;">
+                            <tr>
+                                <th scope="col">Item name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Weight(per item)</th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 40px;">
+                            {% for i in inventory %}
+                            <tr>
+                                <td><strong>{{i[0].name}}</strong></td>
+                                <td><strong>{{i[0].description}}</strong></td>
+                                <td><strong>{{i[1]}}</strong></td>
+                                <td><strong>{{i[0].weight}}
+                                        {%if i[0].equipable%}</strong>
+                                    <form action="/Character" method="post" class="pt-1"><button type="submit"
+                                            name="item_equip" value="{{i[0].id}}"
+                                            class="btn btn-secondary">Equip</button>
+                                    </form>
+                                    {%endif%}
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-4">
+                <form method="post" action="/Character">
+                    <div class="row g-3 pt-4">
+                        <div class="col-sm-6">
+                            <select class="form-select" id="item_add" name="item_add" aria-label="Select an item"
+                                required>
+                                <option selected>Items</option>
+                                {%for i in item_list%}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" id="item_add_btn" class="btn btn-secondary">Add</button>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="1"
+                            value="1">
+                    </div>
+                </form>
+                <form method="get" action="/Character">
+                    <div class="row g-3 pt-4">
+                        <div class="col-sm-6">
+                            {%if item_search == None%}
+                            <input type="text" class="form-control" placeholder="Search items" name="itemSearch"
+                                id="itemSearch" value="" required>
+                            {%else%}
+                            <input type="text" class="form-control" placeholder="Search items" name="itemSearch"
+                                id="itemSearch" value="" required>
+                            <ul class="list-group">
+                                {%for item in item_search%}
+                                <li class="list-group-item">{{item.name}}: {{item.weight}} lbs</li>
+                                {%endfor%}
+                            </ul>
+                            {%endif%}
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-secondary" id="itemSearch_submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-3">
+    <div class="col-6 ps-3 mb-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <h4 class="text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Description</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    {{character.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 ps-10 pe-3">
+        <div class="card custom-card">
+            <div class="card-header">
+                <h4 h4 class="text-center" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Backstory</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    {{character.backstory}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-2 ps-3">
+    <div class="row gx-3">
+        <div class="card-body">
+            <h2 class="text-center"
+                style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-top: 20px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                Abilities</h2>
+            <div class="card custom-card">
+                <ul class="list-group list-group-horizontal">
+                    {%for ability in abilities%}
+                    <li class="list-group list-group-item flex-fill">
+                        <div class="card-header">
+                            {{ability.name}}
+                        </div>
+                        <div class="card-body">
+                            {{ability.description}}
+                        </div>
+                    </li>
+
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/Character/Delete" method="post" class="pt-4">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-danger" type="submit">DELETE CHARACTER</button>
+        <!--Added -->
+    </div>
+    <script>
+        function confirmDelete() {
+            if (confirm("Are you sure want to delete your account?")) {
+                window.location.href = "/delete";
+            }
+        }
+    </script> <!--Added -->
+</form>
+{%endblock%}

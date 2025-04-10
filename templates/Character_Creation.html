@@ -1,0 +1,239 @@
+{%extends '_template.html'%}
+{%block Title%}
+Character Creation
+{%endblock%}
+{%block body%}
+<!--fix action-->
+<style>
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+
+    .form-control {
+        padding-bottom: 10px;
+    }
+</style>
+
+<body>
+    <div class="d-flex justify-content-center p-3">
+        <h3 class="display-1"
+            style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 20px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+            Create your character !</h3>
+    </div>
+
+    <form action="/CharacterCreation" method="post" enctype="multipart/form-data">
+        <div class="row ms-1 input-group ml-3">
+            <div class="col-3">
+                <div class="input-group ml-3">
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" class="form-control" placeholder="Character Name" name="Character-Name"
+                            id="Character-Name" required">
+                    </div>
+                    <div class="input-group ml-3">
+                        <input type="text" class="form-control" placeholder="Personality (one to two words)"
+                            name="Personality" id="Personality" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div style="margin-bottom: 20px;">
+                    <input type="number" class="form-control" placeholder="Age" name="Age" id="Age" required>
+                </div>
+
+                <div class="input-group ml-3">
+                    <select class="form-select" name="Alignment" id="Alignment" required>
+                        <option selected disabled value="">Select a Starting Alignment</option>
+                        <option value="1">Lawful Good</option>
+                        <option value="2">Neutral Good</option>
+                        <option value="3">Chaotic Good</option>
+                        <option value="4">Lawful Neutral</option>
+                        <option value="5">Neutral</option>
+                        <option value="6">Chaotic Neutral</option>
+                        <option value="7">Lawful Evil</option>
+                        <option value="8">Neutral Evil</option>
+                        <option value="9">Chaotic Evil</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div style="margin-bottom: 50px;">
+                    <select class="form-select mb-3" name="Race" id="Race" required>
+                        <option selected disabled value="">Select a Race</option>
+                        {%for x in races%}
+                        <option value={{x.id}}>{{x.name}}</option>
+                        {%endfor%}
+                    </select>
+
+                    <div style="margin-top: 20px;">
+                        <select class="form-select" id="classSelect" name="classSelect" required>
+                            <option selected disabled value="">Class/Archetype</option>
+                            {%for x in classes%}
+                            <option value={{x.id}}> {{x.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div style="margin-bottom: 20px;">
+                    <div class="input-group ml-3">
+                        <input type="text" class="form-control" placeholder="Religion" name="Religion" id="Religion"
+                            required>
+                    </div>
+                </div>
+
+                <select class="form-select" id="equipmentSet" name="equipmentSet" required>
+                    <option selected disabled value="">Equipment Set</option>
+                    <option value="1">Warrior Set</option>
+                    <option value="1">Priest Set</option>
+                    <option value="3">Mage Set</option>
+                    <option value="4">Ranger Set</option>
+                    <option value="5">Rogue Set</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group ml-3 row ms-1">
+            <div class="col-3">
+                <!--fill in the href with link to lore page-->
+                <h1
+                    style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                    Character Stats: </h1>
+                <!--max is 20 min is 1 and total is 60 avarage is 12-->
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <p
+                            style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 40px;">
+                            <label for="stats1" class="">Represents Mental and Physical Resilience: </label>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" name="stats1" class="form-control" placeholder="Grit" min="1" max="20"
+                            required>
+                    </div>
+
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <p
+                            style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 20px;">
+                            <label for="stats2" class="mt-3">Represents Physical Strength and Combat Abilities: </label>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" name="stats2" class="form-control" placeholder="Prowess" min="1" max="20"
+                            required>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <p
+                                style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-top: 30px;">
+                                <label for="stats3" class="">Represents Social Skills and Charm: </label>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p
+                                style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-top: 30px;">
+                            </p>
+                            <input type="number" name="stats5" class="form-control" placeholder="Savvy" min="1" max="20"
+                                required>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-3">
+                <div class="form-group row"><!--fix-->
+                    <div style="margin-bottom: 45px">
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <p
+                                style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 20px;">
+                                <label for="stats3" class="">Represents Fluidity of Movement, Balance, and Finesse:
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" name="stats3" class="form-control" placeholder="Grace" min="1" max="20"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <p
+                                style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 60px;">
+                                <label for="stats4" class="">Represents Intelligence and Cleverness: </label>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p
+                                style="font-weight: lighter; font-family: 'Inter', sans-serif; color:aliceblue; margin-bottom: 20px;">
+                                <input type="number" name="stats4" class="form-control" placeholder="Wit" min="1"
+                                    max="20" required>
+                            </p>
+                        </div>
+                        <div class="row mt-3">
+                            <button name="submit" id="submit"  class="btn btn-light">Create Character</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-6">
+                <h1
+                    style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                    Backstory</h1>
+                <div class="input-group">
+                    <textarea class="form-control" name="Backstorytxtbx" id="Backstorytxtbx"
+                        placeholder="Write any background you want for your character here." required></textarea>
+                </div>
+                <h1
+                    style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; margin-top: 15px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                    Description</h1>
+                <div class="input-group">
+                    <textarea class="form-control" name="Descriptiontxtbx" id="Descriptiontxtbx"
+                        placeholder="Write a description of what your character looks like." required></textarea>
+                </div>
+                <h1
+                    style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; margin-top: 15px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                    Art</h1>
+                <div class="input-group mb-3">
+                    <input type="file" accept="image/jpg" class="form-control" name="PlayerArt" id="PlayerArt"
+                        placeholder="Select Character Art">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div style="margin-top: 15px;">
+                            <select class="form-select" name="startingLocation" id="startingLocation" required>
+                                <option selected disabled value="">Select starting location</option>
+                                <option value="11">Wigan</option>
+                                <option value="15">Gugh</option>
+                                <option value="3">Peton</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="margin-top: 20px;">
+                            <p><a class="link-opacity-100 text-white" href="/Lore">Need more info? Checkout the lore
+                                    page!</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+{%endblock%}

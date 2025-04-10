@@ -1,0 +1,24 @@
+{%extends '_template.html'%}
+{%block Title%}
+Home Page
+{%endblock%}
+{%block body%}
+
+<body>
+    <link href='https://fonts.googleapis.com/css?family=Luckiest Guy' rel='stylesheet'>
+    <div class="vh-100" style="background-image: url({{url_for('static', filename='assets/Background_Home.png')}}); background-size: cover;">
+        <div class="container text-center">
+            <header class="d-flex justify-content-center p-3">
+                <h1 class="display-1" style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; font-size: 100px; text-shadow: 2px 2px 4px rgb(201, 85, 197); margin-top: 80px">Adventure Quest</h1>
+            </header>
+            <p style="font-size: 23px; font-family: 'Inter', sans-serif; color:aliceblue"> Embark on a thrilling journey and discover the secrets of the enchanted realm in Adventure Quest, a text-based roleplaying game.</p>
+            <p style="font-size: 20px; font-family: 'Inter', sans-serif; color:aliceblue; margin-top: 40px; margin-bottom: 40px"> To start your adventure </p>
+            <button type="button" class="btn btn-light"; onclick="window.location.href='/Login'">Log in</button>
+            <p style="font-size: 15px; font-family: 'Inter', sans-serif; color:aliceblue; margin-top: 20px"> or </p>
+            <button type="button" class="btn btn-light"; onclick="window.location.href='/CreateAccount'">Sign up</button>
+        </div>
+    </div>
+</body>
+
+
+{%endblock%}

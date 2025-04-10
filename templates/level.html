@@ -1,0 +1,162 @@
+{%extends '_template.html'%}
+{%block Title%}
+Level Up
+{%endblock%}
+{%block body%}
+
+<style>
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+
+    .form-control {
+        padding-bottom: 10px;
+    }
+
+    .custom-card {
+        background-color: aliceblue;
+    }
+</style>
+
+<div class="d-flex justify-content-center p-3">
+    <h3 class="display-1"
+        style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 20px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+        You've Leveled Up !</h3>
+</div>
+
+<div class="row pt-2 ps-3">
+    <div class="row gx-3">
+        <div class="card-body">
+            <h4 class="text-center"
+                style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-top: 20px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                Character
+            </h4>
+            <div class="card custom-card">
+                <div class="form-check card-body">
+                    {%if character.image%}
+                    <h4 class="ps-4 pt-1 "><img src="static/assets/chars/{{character.image}}">{{character.name}}
+                    </h4>
+                    {%else%}
+                    <h4 class="ps-4 pt-1 text-center">{{character.name}}</h4>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row pt-2 ps-3">
+    <div class="row gx-3">
+        <div class="card-body">
+            <h2 class="text-center"
+                style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-top: 20px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                Class Levels:</h2>
+            <h4 class="text-center" style="font-family: 'Inter', sans-serif; color: aliceblue; margin-top: 5px;">
+                {{char_class.name}}: {{level[0]}}
+            </h4>
+            <div class="card-body">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar"
+                        style="width: {{((character.experience-level[1])/(level[2]-level[1])*100)}}%"
+                        aria-valuenow="{{character.experience}}" aria-valuemin="{{level[1]}}"
+                        aria-valuemax="{{level[2]}}">
+                        {{character.experience - level[1]}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="post" action="/LevelUp">
+<div class="row pt-2 ps-3">
+    <div class="row gx-3">
+        <div class="card-body">
+            <h2 class="text-center"
+                style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-top: 20px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                Abilities</h2>
+            <h4 class="text-center"
+                style="font-family: 'Inter', lighter, sans-serif; color: aliceblue; margin-top: 5px;">
+                Please choose one</h4>
+            <div class="card custom-card">
+                <div class="form-check card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="ability" value="0" id="none"
+                                checked>
+                            <label class="form-check-label" for="none">No Ability</label>
+                        </li>
+                        {%for ability in abilities%}
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="ability" value="{{ability.id}}"
+                                id="{{ability.id}}">
+                            <label class="form-check-label" for="{{ability.id}}">{{ability.name}}</label>
+                            <p>{{ability.description}}</p>
+                        </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2 ps-3">
+        <div class="row gx-3">
+                <div class="card-body">
+                    <h2 class="text-center"
+                        style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-top: 20px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                        Stats</h2>
+                    <h4 class="text-center"
+                        style="font-family: 'Inter', lighter, sans-serif; color: aliceblue; margin-top: 5px;">
+                        Assign two points</h4>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Grit
+                                    </th>
+                                    <td>{{character.grit}} <input type="number" name="grit" min="0" max="2" value="0"
+                                            placeholder="0"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">
+                                        Prowess
+                                    </th>
+                                    <td>{{character.prowess}} <input type="number" name="prowess" min="0" max="2"
+                                            value="0" placeholder="0"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Grace
+                                    </th>
+                                    <td>{{character.grace}} <input type="number" name="grace" min="0" max="2" value="0"
+                                            placeholder="0"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Wit
+                                    </th>
+                                    <td>{{character.wit}} <input type="number" name="wit" min="0" max="2" value="0"
+                                            placeholder="0"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-family: 'Inter', sans-serif; margin-top: 5px;">Savvy
+                                    </th>
+                                    <td>{{character.savvy}} <input type="number" name="savvy" min="0" max="2" value="0"
+                                            placeholder="0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-secondary btn-lg btn-block" type="submit">Level Up!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{%endblock%}

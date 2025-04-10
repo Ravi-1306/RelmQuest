@@ -1,0 +1,92 @@
+{% extends '_template.html' %}
+{% block Title %}
+Login
+{% endblock %}
+{% block body %}
+<style>
+    /* Custom styles for the form container */
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+        margin: 0;
+        padding: 0;
+    }
+
+    .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    /* Style the form inputs */
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        width: 250px;
+        /* Adjust input width */
+    }
+
+    /* Optional styles for the form inputs to add padding */
+    .input-group {
+        margin: 20px;
+        width: 320px;
+    }
+
+    .alert {
+        color: red;
+        font-weight: bold;
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+</style>
+
+<div class="center-form">
+    <h3 class="display-1"
+        style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 20px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+        Login </h3>
+
+    <form method="post" action="/Login">
+        <div class="row ms-1">
+            <div class="col-3">
+                <div class="input-group ml-3">
+                    <input type="text" class="form-control" placeholder="User Name" name="User-Name" id="User-Name"
+                        required>
+                </div>
+                <div class="input-group ml-3">
+                    <input type="password" class="form-control" placeholder="Password" name="User-Password"
+                        id="User-Password" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="d-grid gap-2 col-12">
+                    <button type="submit" class="btn btn-light">Login</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mt-3">
+                    <button class="btn btn-light" onclick="window.location.href='/CreateAccount'">Sign Up</button>
+                </div>
+            </div>
+        </div>
+</div>
+</form>
+<br>
+<br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+</div>
+{% endblock %}

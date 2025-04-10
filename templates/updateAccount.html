@@ -1,0 +1,72 @@
+{% extends '_template.html' %}
+{% block Title %}
+Update Account
+{% endblock %}
+{% block body %}
+<style>
+    body {
+        background-color: rgba(64, 107, 80, 0.903);
+        margin: 0;
+        padding: 0;
+    }
+
+    .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    /* Style the form inputs */
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        width: 250px;
+    }
+
+    /* Optional styles for the form inputs to add padding */
+    .input-group {
+        margin: 20px;
+        width: 320px;
+    }
+
+    .alert {
+        color: red;
+        font-weight: bold;
+    }
+
+    .navbar {
+        background-color: white !important;
+    }
+</style>
+
+<div class="center-form">
+    <h3 class="display-1"
+        style="font-family: 'Luckiest Guy', sans-serif; color:aliceblue; margin-top: 20px; -webkit-text-stroke: 2px rgba(46, 79, 58, 0.903)">
+        Update Form </h3>
+
+    <form action="/update" method="post">
+
+            <h3 style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                New Username: </h3>
+
+                <div class="input-group ml-3">
+                    <input type="text" class="form-control" placeholder="User Name" name="username" id="username"
+                        value="{{ username }}" required>
+                </div>
+                <h3
+                    style="font-family: 'Luckiest Guy', sans-serif; color: aliceblue; margin-bottom: 5px; -webkit-text-stroke: 1px rgba(46, 79, 58, 0.903)">
+                    New Email: </h3>
+                <div class="input-group ml-3">
+                    <input type="text" class="form-control" placeholder="Email" name="email" id="email"
+                        value="{{ email }}" required>
+                </div>
+                <div class="d-grid gap-2 col-1 mx-auto">
+                    <button type="submit" class="btn btn-light">Update</button>
+                </div>
+    </form>
+</div>
+
+{% endblock %}
